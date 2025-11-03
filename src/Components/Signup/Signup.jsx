@@ -7,6 +7,8 @@ import { Link } from "react-router";
 const Signup = () => {
     const [errorMessage, setErrorMessage] = useState("")
     const [done, setDone] = useState(false)
+    const [showpass, setShowpass] = useState(false)
+    
 
     const handleform = e => {
         e.preventDefault()
@@ -60,8 +62,11 @@ const Signup = () => {
         <form className="fieldset" onSubmit={handleform}>
           <label className="label">Email</label>
           <input type="email" name="email" className="input" placeholder="Email" />
-          <label className="label">Password</label>
-          <input name="pass" type="password" className="input" placeholder="Password" />
+          <div className="relative">
+            <label className="label">Password</label>
+          <input name="pass" type={showpass ? "text" : "password"} className="input" placeholder="Password" />
+          <button onClick={() => setShowpass(!showpass)} className="absolute top-6.5 right-6">👁‍🗨</button>
+          </div>
           <p><input name="checkbox" type="checkbox" className="checkbox" />   accept terms and conditions</p>
           {
             errorMessage && <div><p className="text-red-600">{errorMessage}</p></div>
