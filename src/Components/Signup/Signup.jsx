@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { auth } from "../../Config/__config__final__auth";
 import { Link } from "react-router";
 
@@ -31,9 +31,18 @@ const Signup = () => {
         }
         createUserWithEmailAndPassword(auth, email, pass)
         .then(userCredential => {
-            setDone(true)
+            
             const user = userCredential.user;
             console.log(user);
+            // email varify
+            sendEmailVerification(auth.currentUser)
+            .then(() => {
+              setDone(true)
+            })
+            .catch(error => {
+              console.log(error);
+              
+            })
             
         })
         .catch(error => {
@@ -72,7 +81,7 @@ const Signup = () => {
             errorMessage && <div><p className="text-red-600">{errorMessage}</p></div>
           }
           {
-             done && <div><p className="text-green-600">Success full</p></div>
+             done && <div><p className="text-green-600">It's been successful, and we've sent an email that we can verify you.</p></div>
           }
           <button className="btn btn-neutral mt-4">SignUp</button>
         </form>
