@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile  } from "firebase/auth";
 import { auth } from "../../Config/__config__final__auth";
 import { Link } from "react-router";
 
@@ -14,6 +14,8 @@ const Signup = () => {
         e.preventDefault()
         setErrorMessage("")
         setDone(false)
+        const name = e.target.name.value
+        const photo = e.target.photo.value
         const email = e.target.email.value
         const pass = e.target.pass.value
         const checked = e.target.checkbox.checked
@@ -38,6 +40,19 @@ const Signup = () => {
             sendEmailVerification(auth.currentUser)
             .then(() => {
               setDone(true)
+              const profile = {
+                displayName: name,
+                photoURL: photo
+              }
+              updateProfile(auth.currentUser, profile)
+              .then(() => {
+                console.log("profile updated!");
+                
+              })
+              .catch(erroe => {
+                console.log(erroe);
+                
+              })
             })
             .catch(error => {
               console.log(error);
@@ -69,6 +84,10 @@ const Signup = () => {
     <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
       <div className="card-body">
         <form className="fieldset" onSubmit={handleform}>
+          <label className="label">Name</label>
+          <input type="text" name="name" className="input" placeholder="Your Name" />
+          <label className="label">Photo</label>
+          <input type="text" name="photo" className="input" placeholder="Photo URL" />
           <label className="label">Email</label>
           <input type="email" name="email" className="input" placeholder="Email" />
           <div className="relative">
