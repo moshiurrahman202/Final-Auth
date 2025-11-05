@@ -14,7 +14,7 @@ const Login = () => {
         
         signInWithEmailAndPassword(auth, email, pass)
         .then(res => {
-            console.log("user => done=>",res);
+            // console.log("user => done=>",res);
             if(!res.user.emailVerified){
                 alert("Please verify your email address!!")
             }else{
