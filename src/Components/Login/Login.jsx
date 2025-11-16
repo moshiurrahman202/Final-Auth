@@ -1,10 +1,12 @@
-import { signInWithEmailAndPassword, sendPasswordResetEmail  } from "firebase/auth";
+import { sendPasswordResetEmail  } from "firebase/auth";
 import { auth } from "../../Config/__config__final__auth";
 import { Link } from "react-router";
-import { useRef } from "react";
+import { use, useRef } from "react";
+import { AuthContext } from "../../Context/AuthContext";
 
 const Login = () => {
     const emailRef = useRef()
+    const {logIn} = use(AuthContext)
     const loginformhandle = e => {
         e.preventDefault()
         console.log("clicked => login=>");
@@ -12,7 +14,7 @@ const Login = () => {
         const pass = e.target.pass.value
         console.log(email, pass);
         
-        signInWithEmailAndPassword(auth, email, pass)
+        logIn(email, pass)
         .then(res => {
             // console.log("user => done=>",res);
             if(!res.user.emailVerified){
