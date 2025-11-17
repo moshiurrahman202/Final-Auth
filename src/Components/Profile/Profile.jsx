@@ -8,7 +8,7 @@ const Profile = () => {
     return (
         <div className='text-center'>
             <h1>This your profile!</h1>
-            {/* <h3>{user.email}</h3> */}
+            <h3>{user && user.email}</h3>
         </div>
     );
 };

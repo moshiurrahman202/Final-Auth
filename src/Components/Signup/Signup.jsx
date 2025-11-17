@@ -1,7 +1,7 @@
 import { use, useState } from "react";
 import { sendEmailVerification, updateProfile } from "firebase/auth";
 import { auth } from "../../Config/__config__final__auth";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../../Context/AuthContext";
 
 
@@ -10,6 +10,7 @@ const Signup = () => {
   const [done, setDone] = useState(false)
   const [showpass, setShowpass] = useState(false)
   const { createUser } = use(AuthContext)
+  const navigate = useNavigate()
   console.log(createUser);
   
 
@@ -37,7 +38,7 @@ const Signup = () => {
     // createUserWithEmailAndPassword(auth, email, pass)
        createUser(email, pass)
       .then(userCredential => {
-
+        navigate("/")
         const user = userCredential.user;
         console.log(user);
         // email varify

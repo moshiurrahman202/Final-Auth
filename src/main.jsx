@@ -10,6 +10,7 @@ import Signup from './Components/Signup/Signup';
 import AuthProvider from './Context/AuthProvider';
 import Profile from "./Components/Profile/Profile";
 import PrivateRoute from "./P_router/PrivateRoute";
+import Dashbord from "./Components/Dashbprd/Dashbord";
 
 
 
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path:"profile",
         element: <PrivateRoute><Profile></Profile></PrivateRoute>
+      },
+      {
+        path: "dashbord",
+        element: <PrivateRoute><Dashbord></Dashbord></PrivateRoute>
       }
     ]
   },

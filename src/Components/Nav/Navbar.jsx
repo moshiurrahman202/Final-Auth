@@ -1,15 +1,17 @@
 import { use } from "react";
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import { AuthContext } from "../../Context/AuthContext";
 
 
 
 const Navbar = () => {
 const { user, signout} = use(AuthContext)
+const navigate = useNavigate()
 // console.log(info);
 const signouthandler = () => {
   signout()
   .then(() => {
+    navigate("/login")
     console.log("sign out successful" );
     
   })
@@ -24,6 +26,7 @@ const signouthandler = () => {
     const links = <>
     <li><NavLink to="/">Home</NavLink></li>
     <li><NavLink to="/login">Login</NavLink></li>
+    <li><NavLink to="/dashbord">Dashbord</NavLink></li>
     <li><NavLink to="/signup">SignUp</NavLink></li>
     {
       user && <li><NavLink to="/profile">Profile</NavLink></li>

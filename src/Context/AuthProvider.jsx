@@ -6,11 +6,14 @@ import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndP
 
 const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null)
+    const [loading, setLoading] = useState(true)
     const createUser = (email, pass) => {
+        setLoading(true)
         return createUserWithEmailAndPassword(auth, email, pass)
     }
 
     const logIn = (email, pass) => {
+        setLoading(setLoading(true))
         return signInWithEmailAndPassword(auth, email, pass)
     }
     // onAuthStateChanged(auth, (currentUser) => {
@@ -19,12 +22,14 @@ const AuthProvider = ({children}) => {
 
     // })
     const signout = () => {
+        setLoading(true)
         return signOut(auth)
     }
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
             console.log("current user inside the useEffect on auth state change", currentUser);
             setUser(currentUser)
+            setLoading(false)
             
         })
         return () => {
@@ -35,7 +40,8 @@ const AuthProvider = ({children}) => {
         user,
         createUser,
         logIn,
-        signout
+        signout,
+        loading
     }
     return (
         <AuthContext value={userInfo}>{children}</AuthContext>

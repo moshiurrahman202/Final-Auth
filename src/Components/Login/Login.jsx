@@ -1,12 +1,13 @@
 import { sendPasswordResetEmail  } from "firebase/auth";
 import { auth } from "../../Config/__config__final__auth";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { use, useRef } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 
 const Login = () => {
     const emailRef = useRef()
     const {logIn} = use(AuthContext)
+    const navigate = useNavigate()
     const loginformhandle = e => {
         e.preventDefault()
         console.log("clicked => login=>");
@@ -20,6 +21,7 @@ const Login = () => {
             if(!res.user.emailVerified){
                 alert("Please verify your email address!!")
             }else{
+                navigate("/")
                 console.log("login successful => ❤");
                 
             }
