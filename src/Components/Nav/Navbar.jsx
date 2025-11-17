@@ -5,7 +5,7 @@ import { AuthContext } from "../../Context/AuthContext";
 
 
 const Navbar = () => {
-const { user} = use(AuthContext)
+const { user, signout} = use(AuthContext)
 // console.log(info);
 
 
@@ -36,7 +36,7 @@ const { user} = use(AuthContext)
     </ul>
   </div>
   <div className="navbar-end">
-    {user ? <a className="btn">LogOut</a> : <a><Link to="login">LogIn</Link></a>}
+    {user ? <a onClick={() => signout()} className="btn">LogOut</a> : <a><Link to="login">LogIn</Link></a>}
   </div>
 </div>
           
